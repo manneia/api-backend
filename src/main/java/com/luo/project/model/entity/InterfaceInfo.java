@@ -1,9 +1,7 @@
-package generator.domain;
+package com.luo.project.model.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
@@ -11,6 +9,7 @@ import lombok.Data;
 /**
  * 接口信息表
  * @TableName interface_info
+ * @author lkx
  */
 @TableName(value ="interface_info")
 @Data
@@ -74,6 +73,7 @@ public class InterfaceInfo implements Serializable {
     /**
      * 是否删除(0-未删, 1-已删)
      */
+    @TableLogic
     private Integer isDelete;
 
     @TableField(exist = false)
