@@ -32,6 +32,11 @@
             <optional>true</optional>
         </dependency>
         <dependency>
+            <groupId>com.luo</groupId>
+            <artifactId>api-client-sdk</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>

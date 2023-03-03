@@ -1,19 +1,17 @@
-package com.luo.apiinterface.client;
+package com.luo.apiclientsdk.client;
 
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONUtil;
-import com.luo.apiinterface.model.User;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import com.luo.apiclientsdk.model.User;
 
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.luo.apiinterface.utils.SignUtils.getSign;
+import static com.luo.apiclientsdk.utils.SignUtils.getSign;
 
 /**
  * @author lkx
@@ -37,7 +35,7 @@ public class ApiClient {
         return result;
     }
 
-    public String getNameByPost(@RequestParam String name) {
+    public String getNameByPost(String name) {
         HashMap<String, Object> paramMap = new HashMap<>();
         paramMap.put("name", name);
         String result = HttpUtil.post("http://localhost:8123/api/name/user", paramMap);
@@ -57,7 +55,7 @@ public class ApiClient {
         return headerMap;
     }
 
-    public String getUserNameByPost(@RequestBody User user) {
+    public String getUserNameByPost(User user) {
         String json = JSONUtil.toJsonStr(user);
         HttpResponse httpResponse = HttpRequest.post("http://localhost:8123/api/name/").charset(StandardCharsets.UTF_8).addHeaders(getHeaderMap(json)).body(json).execute();
         return httpResponse.body();

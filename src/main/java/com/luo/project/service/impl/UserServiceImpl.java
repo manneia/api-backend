@@ -1,5 +1,7 @@
 package com.luo.project.service.impl;
 
+import cn.hutool.core.util.RandomUtil;
+import cn.hutool.crypto.digest.DigestUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.luo.project.constant.UserConstant;
@@ -18,8 +20,8 @@ import javax.servlet.http.HttpServletRequest;
 
 
 /**
- * @Description 用户服务实现类
  * @author yupi
+ * @Description 用户服务实现类
  */
 @Service
 @Slf4j
@@ -35,11 +37,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     private static final String SALT = "lkx";
 
     /**
-     * @Description 用户注册
      * @param userAccount   用户账户
      * @param userPassword  用户密码
      * @param checkPassword 校验密码
      * @return 新用户 id
+     * @Description 用户注册
      */
     @Override
     public long userRegister(String userAccount, String userPassword, String checkPassword) {
@@ -69,10 +71,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
             }
             // 2. 加密
             String encryptPassword = DigestUtils.md5DigestAsHex((SALT + userPassword).getBytes());
-            // 3. 插入数据
+            // 3. 分配 accessKey, secretKey
+            String accessKey = DigestUtil.md5Hex(SALT + userAccount + RandomUtil.randomNumbers(5));
+            String secretKey = DigestUtil.md5Hex(SALT + userAccount + RandomUtil.randomNumbers(8));
+            // 4. 插入数据
             User user = new User();
             user.setUserAccount(userAccount);
             user.setUserPassword(encryptPassword);
+            user.setAccessKey(accessKey);
+            user.setSecretKey(secretKey);
             boolean saveResult = this.save(user);
             if (!saveResult) {
                 throw new BusinessException(ErrorCode.SYSTEM_ERROR, "注册失败，数据库错误");
@@ -82,11 +89,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     }
 
     /**
-     * @Description 用户登录
      * @param userAccount  用户账户
      * @param userPassword 用户密码
-     * @param request 当前登录用户请求参数
+     * @param request      当前登录用户请求参数
      * @return 脱敏后的用户信息
+     * @Description 用户登录
      */
     @Override
     public User userLogin(String userAccount, String userPassword, HttpServletRequest request) {
@@ -120,9 +127,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     }
 
     /**
-     * @Description 获取当前登录用户
      * @param request 当前登录用户请求参数
      * @return 返回当前登录用户
+     * @Description 获取当前登录用户
      */
     @Override
     public User getLoginUser(HttpServletRequest request) {
@@ -142,9 +149,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     }
 
     /**
-     * @Description 是否为管理员
      * @param request 当前登录用户请求参数
      * @return 返回是否为管理员
+     * @Description 是否为管理员
      */
     @Override
     public boolean isAdmin(HttpServletRequest request) {
@@ -155,9 +162,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     }
 
     /**
-     * @Description 用户注销
      * @param request 当前登录用户请求参数
      * @return 返回是否注销成功
+     * @Description 用户注销
      */
     @Override
     public boolean userLogout(HttpServletRequest request) {

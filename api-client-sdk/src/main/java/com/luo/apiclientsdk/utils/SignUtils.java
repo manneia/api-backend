@@ -1,4 +1,4 @@
-package com.luo.apiinterface.utils;
+package com.luo.apiclientsdk.utils;
 
 import cn.hutool.crypto.digest.DigestAlgorithm;
 import cn.hutool.crypto.digest.Digester;

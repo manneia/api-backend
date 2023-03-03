@@ -1,4 +1,4 @@
-package com.luo.apiinterface.model;
+package com.luo.apiclientsdk.model;
 
 import lombok.Data;
 

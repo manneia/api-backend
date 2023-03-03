@@ -1,7 +1,7 @@
 package com.luo.apiinterface.controller;
 
-import com.luo.apiinterface.model.User;
-import com.luo.apiinterface.utils.SignUtils;
+import com.luo.apiclientsdk.model.User;
+import com.luo.apiclientsdk.utils.SignUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
