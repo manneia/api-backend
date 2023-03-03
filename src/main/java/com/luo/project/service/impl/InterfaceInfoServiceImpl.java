@@ -37,7 +37,7 @@ public class InterfaceInfoServiceImpl extends ServiceImpl<InterfaceInfoMapper, I
             }
         }
         int nameMaxLen = 50;
-        if (StringUtils.isNotBlank(name) && name.length() < nameMaxLen) {
+        if (StringUtils.isNotBlank(name) && name.length() > nameMaxLen) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "名称过长");
         }
 
