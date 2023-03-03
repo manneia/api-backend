@@ -8,6 +8,7 @@ import com.luo.project.common.*;
 import com.luo.project.constant.CommonConstant;
 import com.luo.project.exception.BusinessException;
 import com.luo.project.model.dto.interfaceInfo.InterfaceInfoAddRequest;
+import com.luo.project.model.dto.interfaceInfo.InterfaceInfoInvokeRequest;
 import com.luo.project.model.dto.interfaceInfo.InterfaceInfoQueryRequest;
 import com.luo.project.model.dto.interfaceInfo.InterfaceInfoUpdateRequest;
 import com.luo.project.model.entity.InterfaceInfo;
@@ -42,6 +43,7 @@ public class InterfaceInfoController {
 
     @Resource
     private ApiClient apiClient;
+    private InterfaceInfoInvokeRequest interfaceInfoInvokeRequest;
 
     /**
      * @param interfaceInfoAddRequest 帖子新增参数
@@ -217,7 +219,7 @@ public class InterfaceInfoController {
         // 仅本人或管理员可修改
         InterfaceInfo interfaceInfo = new InterfaceInfo();
         interfaceInfo.setId(id);
-        interfaceInfo.setStatus(InterfaceInfoStatusEnum.ONLINE.getValue() );
+        interfaceInfo.setStatus(InterfaceInfoStatusEnum.ONLINE.getValue());
         boolean result = interfaceInfoService.updateById(interfaceInfo);
         return ResultUtils.success(result);
     }
@@ -251,7 +253,42 @@ public class InterfaceInfoController {
         // 仅本人或管理员可修改
         InterfaceInfo interfaceInfo = new InterfaceInfo();
         interfaceInfo.setId(id);
-        interfaceInfo.setStatus(InterfaceInfoStatusEnum.OFFLINE.getValue() );
+        interfaceInfo.setStatus(InterfaceInfoStatusEnum.OFFLINE.getValue());
+        boolean result = interfaceInfoService.updateById(interfaceInfo);
+        return ResultUtils.success(result);
+    }
+
+    /**
+     * @param interfaceInfoInvokeRequest 当前接口id
+     * @param request                    当前用户参数
+     * @return 返回是否更新成功
+     * @Description 测试调用
+     */
+    @PostMapping("/invoke ")
+    @AuthCheck(mustRole = "admin")
+    public BaseResponse<Boolean> offlineInterfaceInfo(@RequestBody InterfaceInfoInvokeRequest interfaceInfoInvokeRequest,
+                                                      HttpServletRequest request) {
+        if (interfaceInfoInvokeRequest == null || interfaceInfoInvokeRequest.getId() < 0) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        long id = interfaceInfoInvokeRequest.getId();
+        String userRequestParams = interfaceInfoInvokeRequest.getUserRequestParams();
+        // 判断是否存在
+        InterfaceInfo oldInterfaceInfo = interfaceInfoService.getById(id);
+        if (oldInterfaceInfo == null) {
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
+        }
+        // 判断该接口是否可以调用
+        com.luo.apiclientsdk.model.User user = new com.luo.apiclientsdk.model.User();
+        user.setUserName("lkx");
+        String username = apiClient.getUserNameByPost(user);
+        if (StringUtils.isBlank(username)) {
+            throw new BusinessException(ErrorCode.SYSTEM_ERROR, "接口验证失败 ");
+        }
+        // 仅本人或管理员可修改
+        InterfaceInfo interfaceInfo = new InterfaceInfo();
+        interfaceInfo.setId(id);
+        interfaceInfo.setStatus(InterfaceInfoStatusEnum.OFFLINE.getValue());
         boolean result = interfaceInfoService.updateById(interfaceInfo);
         return ResultUtils.success(result);
     }
