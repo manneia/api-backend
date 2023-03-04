@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * @author lkx
  * @version 1.0.0
- * @Description
+ * @Description 更新请求
  */
 @Data
 public class InterfaceInfoUpdateRequest implements Serializable {
