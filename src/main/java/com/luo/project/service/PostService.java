@@ -10,7 +10,7 @@ import com.luo.project.model.entity.Post;
 public interface PostService extends IService<Post> {
 
     /**
-     * @Description 校验
+     * 校验
      * @param post 提交参数
      * @param add 是否为创建校验
      */

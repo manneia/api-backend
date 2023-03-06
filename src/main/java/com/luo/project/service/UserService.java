@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 public interface UserService extends IService<User> {
 
     /**
-     * @Description 用户注册
+     * 用户注册
      * @param userAccount   用户账户
      * @param userPassword  用户密码
      * @param checkPassword 校验密码
@@ -22,7 +22,7 @@ public interface UserService extends IService<User> {
     long userRegister(String userAccount, String userPassword, String checkPassword);
 
     /**
-     * @Description 用户登录
+     * 用户登录
      * @param userAccount  用户账户
      * @param userPassword 用户密码
      * @param request 当前登录用户请求参数
@@ -31,21 +31,21 @@ public interface UserService extends IService<User> {
     User userLogin(String userAccount, String userPassword, HttpServletRequest request);
 
     /**
-     * @Description 获取当前登录用户
+     * 获取当前登录用户
      * @param request 当前登录用户请求参数
      * @return 返回当前登录用户
      */
     User getLoginUser(HttpServletRequest request);
 
     /**
-     * @Description 是否为管理员
+     *  是否为管理员
      * @param request 当前登录用户请求参数
      * @return 返回是否为管理员
      */
     boolean isAdmin(HttpServletRequest request);
 
     /**
-     * @Description 用户注销
+     * 用户注销
      * @param request 当前登录用户请求参数
      * @return 返回是否注销成功
      */

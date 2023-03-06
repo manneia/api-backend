@@ -14,17 +14,17 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/name")
 public class NameController {
-    @GetMapping("/")
-    public String getName(String name) {
+    @GetMapping("/get")
+    public String getNameByGet(String name,HttpServletRequest request) {
         return "GET 你的名字是" + name;
     }
 
-    @PostMapping("/user")
+    @PostMapping("/post")
     public String getNameByPost(@RequestParam String name) {
         return "POST 你的名字是" + name;
     }
 
-    @PostMapping("/")
+    @PostMapping("/user")
     public String getUserNameByPost(@RequestBody User user, HttpServletRequest request) {
         String oldAccessKey = "lkx";
         String oldSecretKey = "abcdefgh";
@@ -45,6 +45,8 @@ public class NameController {
         if (!sign.equals(serverSign)) {
             throw new RuntimeException("无权限 ");
         }
-        return "POST 你的名字是" + user.getUserName();
+        String result = "POST 你的名字是" + user.getUserName();
+        // todo 调用次数 + 1
+        return result;
     }
 }

@@ -22,6 +22,7 @@ public class ApiClient {
     private String accessKey;
     private String secretKey;
 
+    private static final String GATEWAY_HOST = "http://localhost:8090";
     public ApiClient(String accessKey, String secretKey) {
         this.accessKey = accessKey;
         this.secretKey = secretKey;
@@ -30,7 +31,7 @@ public class ApiClient {
     public String getNameByGet(String name) {
         HashMap<String, Object> paramMap = new HashMap<>();
         paramMap.put("name", name);
-        String result = HttpUtil.get("http://localhost:8123/api/name/", paramMap);
+        String result = HttpUtil.get(GATEWAY_HOST + "/api/name/", paramMap);
         System.out.println(result);
         return result;
     }
@@ -38,7 +39,7 @@ public class ApiClient {
     public String getNameByPost(String name) {
         HashMap<String, Object> paramMap = new HashMap<>();
         paramMap.put("name", name);
-        String result = HttpUtil.post("http://localhost:8123/api/name/user", paramMap);
+        String result = HttpUtil.post(GATEWAY_HOST + "/api/name/user", paramMap);
         System.out.println(result);
         return result;
     }
@@ -57,7 +58,7 @@ public class ApiClient {
 
     public String getUserNameByPost(User user) {
         String json = JSONUtil.toJsonStr(user);
-        HttpResponse httpResponse = HttpRequest.post("http://localhost:8123/api/name/").charset(StandardCharsets.UTF_8).addHeaders(getHeaderMap(json)).body(json).execute();
+        HttpResponse httpResponse = HttpRequest.post(GATEWAY_HOST + "/api/name/").charset(StandardCharsets.UTF_8).addHeaders(getHeaderMap(json)).body(json).execute();
         return httpResponse.body();
     }
 }

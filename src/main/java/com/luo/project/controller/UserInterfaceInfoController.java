@@ -8,6 +8,7 @@ import com.luo.project.common.DeleteRequest;
 import com.luo.project.common.ErrorCode;
 import com.luo.project.common.ResultUtils;
 import com.luo.project.constant.CommonConstant;
+import com.luo.project.constant.UserConstant;
 import com.luo.project.exception.BusinessException;
 import com.luo.project.model.dto.userInterfaceInfo.UserInterfaceInfoAddRequest;
 import com.luo.project.model.dto.userInterfaceInfo.UserInterfaceInfoQueryRequest;
@@ -48,6 +49,7 @@ public class UserInterfaceInfoController {
      * @Description 创建
      */
     @PostMapping("/add")
+    @AuthCheck(mustRole = "admin")
     public BaseResponse<Long> addUserInterfaceInfo(@RequestBody UserInterfaceInfoAddRequest userInterfaceInfoAddRequest, HttpServletRequest request) {
         if (userInterfaceInfoAddRequest == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
@@ -73,6 +75,7 @@ public class UserInterfaceInfoController {
      * @Description 删除
      */
     @PostMapping("/delete")
+    @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
     public BaseResponse<Boolean> deleteUserInterfaceInfo(@RequestBody DeleteRequest deleteRequest, HttpServletRequest request) {
         if (deleteRequest == null || deleteRequest.getId() <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
@@ -99,6 +102,7 @@ public class UserInterfaceInfoController {
      * @Description 更新
      */
     @PostMapping("/update")
+    @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
     public BaseResponse<Boolean> updateUserInterfaceInfo(@RequestBody UserInterfaceInfoUpdateRequest userInterfaceInfoUpdateRequest,
                                                          HttpServletRequest request) {
         if (userInterfaceInfoUpdateRequest == null || userInterfaceInfoUpdateRequest.getId() <= 0) {
@@ -129,6 +133,7 @@ public class UserInterfaceInfoController {
      * @Description 根据 id 获取
      */
     @GetMapping("/get")
+    @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
     public BaseResponse<UserInterfaceInfo> getUserInterfaceInfoById(long id) {
         if (id <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
@@ -142,7 +147,7 @@ public class UserInterfaceInfoController {
      * @return 返回帖子列表
      * @Description 获取列表（仅管理员可使用）
      */
-    @AuthCheck(mustRole = "admin")
+    @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
     @GetMapping("/list")
     public BaseResponse<List<UserInterfaceInfo>> listUserInterfaceInfo(UserInterfaceInfoQueryRequest userInterfaceInfoQueryRequest) {
         UserInterfaceInfo userInterfaceInfoQuery = new UserInterfaceInfo();
@@ -160,6 +165,7 @@ public class UserInterfaceInfoController {
      * @Description 分页获取列表
      */
     @GetMapping("/list/page")
+    @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
     public BaseResponse<Page<UserInterfaceInfo>> listUserInterfaceInfoByPage(UserInterfaceInfoQueryRequest userInterfaceInfoQueryRequest) {
         int maxVal = 50;
         if (userInterfaceInfoQueryRequest == null) {
