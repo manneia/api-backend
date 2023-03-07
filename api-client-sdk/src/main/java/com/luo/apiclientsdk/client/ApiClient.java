@@ -31,7 +31,7 @@ public class ApiClient {
     public String getNameByGet(String name) {
         HashMap<String, Object> paramMap = new HashMap<>();
         paramMap.put("name", name);
-        String result = HttpUtil.get(GATEWAY_HOST + "/api/name/", paramMap);
+        String result = HttpUtil.get(GATEWAY_HOST + "/api/name/get", paramMap);
         System.out.println(result);
         return result;
     }
@@ -39,7 +39,7 @@ public class ApiClient {
     public String getNameByPost(String name) {
         HashMap<String, Object> paramMap = new HashMap<>();
         paramMap.put("name", name);
-        String result = HttpUtil.post(GATEWAY_HOST + "/api/name/user", paramMap);
+        String result = HttpUtil.post(GATEWAY_HOST + "/api/name/post", paramMap);
         System.out.println(result);
         return result;
     }
@@ -58,7 +58,7 @@ public class ApiClient {
 
     public String getUserNameByPost(User user) {
         String json = JSONUtil.toJsonStr(user);
-        HttpResponse httpResponse = HttpRequest.post(GATEWAY_HOST + "/api/name/").charset(StandardCharsets.UTF_8).addHeaders(getHeaderMap(json)).body(json).execute();
+        HttpResponse httpResponse = HttpRequest.post(GATEWAY_HOST + "/api/name/user").charset(StandardCharsets.UTF_8).addHeaders(getHeaderMap(json)).body(json).execute();
         return httpResponse.body();
     }
 }
