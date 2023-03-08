@@ -1,6 +1,6 @@
 package com.luo.project.service.impl;
 
-import com.luo.project.service.UserInterfaceInfoService;
+import com.luo.apicommon.service.UserInterfaceInfoService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
