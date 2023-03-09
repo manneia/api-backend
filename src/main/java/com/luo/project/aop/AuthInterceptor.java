@@ -1,10 +1,10 @@
 package com.luo.project.aop;
 
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.luo.apicommon.model.entity.User;
 import com.luo.project.annotation.AuthCheck;
-import com.luo.project.exception.BusinessException;
 import com.luo.project.common.ErrorCode;
-import com.luo.project.model.entity.User;
+import com.luo.project.exception.BusinessException;
 import com.luo.project.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;

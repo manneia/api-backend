@@ -1,7 +1,7 @@
 package com.luo.project.mapper;
 
-import com.luo.project.model.entity.InterfaceInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.luo.apicommon.model.entity.InterfaceInfo;
 
 /**
 * @author lkx

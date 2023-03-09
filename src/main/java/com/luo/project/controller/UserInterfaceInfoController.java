@@ -2,8 +2,8 @@ package com.luo.project.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.luo.apicommon.model.entity.User;
 import com.luo.apicommon.model.entity.UserInterfaceInfo;
-import com.luo.apicommon.service.InnerUserInterfaceInfoService;
 import com.luo.project.annotation.AuthCheck;
 import com.luo.project.common.BaseResponse;
 import com.luo.project.common.DeleteRequest;
@@ -15,7 +15,7 @@ import com.luo.project.exception.BusinessException;
 import com.luo.project.model.dto.userInterfaceInfo.UserInterfaceInfoAddRequest;
 import com.luo.project.model.dto.userInterfaceInfo.UserInterfaceInfoQueryRequest;
 import com.luo.project.model.dto.userInterfaceInfo.UserInterfaceInfoUpdateRequest;
-import com.luo.project.model.entity.User;
+import com.luo.project.service.UserInterfaceInfoService;
 import com.luo.project.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -37,7 +37,7 @@ import java.util.List;
 public class UserInterfaceInfoController {
 
     @Resource
-    private InnerUserInterfaceInfoService userInterfaceInfoService;
+    private UserInterfaceInfoService userInterfaceInfoService;
 
     @Resource
     private UserService userService;

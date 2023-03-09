@@ -2,7 +2,7 @@ package com.luo.project.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.luo.project.model.entity.User;
+import com.luo.apicommon.model.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
 

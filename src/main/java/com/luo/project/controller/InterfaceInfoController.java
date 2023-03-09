@@ -4,16 +4,15 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.gson.Gson;
 import com.luo.apiclientsdk.client.ApiClient;
+import com.luo.apicommon.model.entity.InterfaceInfo;
+import com.luo.apicommon.model.entity.User;
 import com.luo.project.annotation.AuthCheck;
 import com.luo.project.common.*;
-import com.luo.project.constant.CommonConstant;
 import com.luo.project.exception.BusinessException;
 import com.luo.project.model.dto.interfaceInfo.InterfaceInfoAddRequest;
 import com.luo.project.model.dto.interfaceInfo.InterfaceInfoInvokeRequest;
 import com.luo.project.model.dto.interfaceInfo.InterfaceInfoQueryRequest;
 import com.luo.project.model.dto.interfaceInfo.InterfaceInfoUpdateRequest;
-import com.luo.project.model.entity.InterfaceInfo;
-import com.luo.project.model.entity.User;
 import com.luo.project.model.enums.InterfaceInfoStatusEnum;
 import com.luo.project.service.InterfaceInfoService;
 import com.luo.project.service.UserService;
@@ -174,8 +173,6 @@ public class InterfaceInfoController {
         BeanUtils.copyProperties(interfaceInfoQueryRequest, interfaceInfoQuery);
         long current = interfaceInfoQueryRequest.getCurrent();
         long size = interfaceInfoQueryRequest.getPageSize();
-//        String sortField = interfaceInfoQueryRequest.getSortField();
-//        String sortOrder = interfaceInfoQueryRequest.getSortOrder();
         String content = interfaceInfoQuery.getDescription();
         // content 需支持模糊搜索
         interfaceInfoQuery.setDescription(null);
@@ -185,8 +182,6 @@ public class InterfaceInfoController {
         }
         QueryWrapper<InterfaceInfo> queryWrapper = new QueryWrapper<>(interfaceInfoQuery);
         queryWrapper.like(StringUtils.isNotBlank(content), "content", content);
-//        queryWrapper.orderBy(StringUtils.isNotBlank(sortField),
-//                sortOrder.equals(CommonConstant.SORT_ORDER_ASC), sortField);
         Page<InterfaceInfo> interfaceInfoPage = interfaceInfoService.page(new Page<>(current, size), queryWrapper);
         return ResultUtils.success(interfaceInfoPage);
     }

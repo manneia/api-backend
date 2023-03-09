@@ -1,7 +1,7 @@
 package com.luo.project.service;
 
-import com.luo.project.model.entity.InterfaceInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.luo.apicommon.model.entity.InterfaceInfo;
 
 /**
 * @author lkx

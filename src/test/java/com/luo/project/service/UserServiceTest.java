@@ -1,6 +1,6 @@
 package com.luo.project.service;
 
-import com.luo.project.model.entity.User;
+import com.luo.apicommon.model.entity.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -2,12 +2,11 @@ package com.luo.project.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.luo.apicommon.model.entity.InterfaceInfo;
 import com.luo.apicommon.model.entity.UserInterfaceInfo;
-import com.luo.apicommon.service.InnerUserInterfaceInfoService;
 import com.luo.project.common.ErrorCode;
 import com.luo.project.exception.BusinessException;
 import com.luo.project.mapper.UserInterfaceInfoMapper;
+import com.luo.project.service.UserInterfaceInfoService;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,15 +16,19 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserInterfaceInfoServiceImpl extends ServiceImpl<UserInterfaceInfoMapper, UserInterfaceInfo>
-        implements InnerUserInterfaceInfoService {
+        implements UserInterfaceInfoService {
+
+    private UserInterfaceInfo userInterfaceInfo;
+    private boolean add;
 
     /**
      * @param userInterfaceInfo 接口信息请求参数
      * @param add               true/false
      * @Description 请求参数校验
      */
-    @Override
     public void validUserInterfaceInfo(UserInterfaceInfo userInterfaceInfo, boolean add) {
+        this.userInterfaceInfo = userInterfaceInfo;
+        this.add = add;
         if (userInterfaceInfo == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
@@ -40,6 +43,7 @@ public class UserInterfaceInfoServiceImpl extends ServiceImpl<UserInterfaceInfoM
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "当前用户调用次数已耗尽");
         }
     }
+
 
     /**
      * 调用接口统计
@@ -59,16 +63,6 @@ public class UserInterfaceInfoServiceImpl extends ServiceImpl<UserInterfaceInfoM
         userInterfaceInfoQueryWrapper.gt("leftNum",0);
         userInterfaceInfoQueryWrapper.setSql("leftNum = leftNum - 1, totalNum = totalNum + 1");
         return this.update(userInterfaceInfoQueryWrapper);
-    }
-
-    @Override
-    public boolean getInvokeUser(String accessKey, String secretKey) {
-        return false;
-    }
-
-    @Override
-    public InterfaceInfo getInterfaceInfo(String path, String method) {
-        return null;
     }
 }
 

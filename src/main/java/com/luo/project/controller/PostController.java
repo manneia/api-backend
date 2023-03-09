@@ -2,6 +2,7 @@ package com.luo.project.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.luo.apicommon.model.entity.User;
 import com.luo.project.annotation.AuthCheck;
 import com.luo.project.constant.CommonConstant;
 import com.luo.project.exception.BusinessException;
@@ -13,7 +14,6 @@ import com.luo.project.model.dto.post.PostAddRequest;
 import com.luo.project.model.dto.post.PostQueryRequest;
 import com.luo.project.model.dto.post.PostUpdateRequest;
 import com.luo.project.model.entity.Post;
-import com.luo.project.model.entity.User;
 import com.luo.project.service.PostService;
 import com.luo.project.service.UserService;
 import lombok.extern.slf4j.Slf4j;

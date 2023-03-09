@@ -1,12 +1,12 @@
 package com.luo.project.controller;
 
+import com.luo.apicommon.model.entity.User;
 import com.luo.project.common.BaseResponse;
 import com.luo.project.common.ErrorCode;
 import com.luo.project.common.ResultUtils;
 import com.luo.project.exception.BusinessException;
 import com.luo.project.model.dto.user.UserLoginRequest;
 import com.luo.project.model.dto.user.UserRegisterRequest;
-import com.luo.project.model.entity.User;
 import com.luo.project.model.vo.UserVO;
 import com.luo.project.service.UserService;
 import org.apache.commons.lang3.StringUtils;
